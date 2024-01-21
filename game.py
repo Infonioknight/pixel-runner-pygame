@@ -79,7 +79,8 @@ exit_key_rect = exit_key.get_rect(center = (50, 30))
 
 # Timer 
 obstacle_timer = pygame.USEREVENT + 1
-pygame.time.set_timer(obstacle_timer, 1500)
+obstacle_interval = 1500
+pygame.time.set_timer(obstacle_timer, obstacle_interval)
 
 while True:
     for event in pygame.event.get():
@@ -87,9 +88,13 @@ while True:
             pygame.quit()
             exit()
         
-        if game_active:          
+        if game_active:        
+            if obstacle_interval > 250:
+                obstacle_interval = 1500 - (score * 100) // 6
+            print(obstacle_interval)
             if event.type == obstacle_timer:
                 obstacle_group.add(obstacle.Obstacle(choice(['fly', 'snail', 'snail'])))
+                pygame.time.set_timer(obstacle_timer, obstacle_interval)
         
         else:
             if event.type == pygame.KEYDOWN:
@@ -113,7 +118,7 @@ while True:
         player_instance.update()
 
         obstacle_group.draw(screen)
-        obstacle_group.update()
+        obstacle_group.update(score)
 
         # Collisions
         game_active = collision_sprite()
