@@ -11,7 +11,12 @@ Basic 2-D endless horizontal runner game.
 git clone https://github.com/Infonioknight/pixel-runner-pygame.git
 ```
 
-### 2. Run the game
+### 2. Install necessary dependencies
+```
+pip install -r requirements.txt
+```
+
+### 3. Run the game
 ```
 python3 game.py
 ```
